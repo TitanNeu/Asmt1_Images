@@ -1,12 +1,13 @@
 #include <iostream>
 #include <fstream>
+#include "src/MyImageClass.h"
 
 int main() {
-    std::string s;
-    int width, height, max;
-    std::ifstream infile("/Users/hunterdick/CLionProjects/Asmt1-Images/source/p6/Lenna.ppm");  // open input file
+    std::string in = "/Users/hunterdick/CLionProjects/Asmt1-Images/source/p6/Lenna.ppm";
+    MyImageClass img(in);
 
-    infile >> s >> width >> height >> max;
-    std::cout << s << std::endl;
+    std::string out = "/Users/hunterdick/CLionProjects/Asmt1-Images/out/rgb/LennaOut.ppm";
+    img.save(out);
+
 
 }

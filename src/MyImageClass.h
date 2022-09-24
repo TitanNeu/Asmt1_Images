@@ -14,15 +14,15 @@ private:
     string inputPath;
     string outputPath;
     string magicNum;
-    string height;
-    string width;
-    string maxPixVal;
-    vector<vector<char>> data;
+    int height;
+    int width;
+    int maxPixVal;
+    vector<vector<vector<unsigned char>>> data;
 
 public:
     explicit MyImageClass(const string& imgPath);
     MyImageClass();
-    MyImageClass operator+(const MyImageClass& img2);
+//    MyImageClass operator+(const MyImageClass& img2);
     void operator+=(const MyImageClass& img2);
     void operator>>(std::ifstream in);
     void operator<<(std::ofstream out);
