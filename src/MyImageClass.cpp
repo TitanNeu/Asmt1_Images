@@ -16,23 +16,16 @@
 
 MyImageClass::MyImageClass(const string &imgPath) {
     this->inputPath = imgPath;
-    std::ifstream infile(inputPath,std::ios::in | std::ios::binary);
+    std::ifstream infile(inputPath, std::ios::in | std::ios::binary);
     infile >> this->magicNum >> this->width >> this->height >> this->maxPixVal;
-    unsigned char temp = '0';
-    string line;
+    int size = height * width * 3;
+    data.resize(size);
+    // read content of infile
+    infile.read(reinterpret_cast<char *>(&data[0]), size);
+    infile.close();
 
-    for(int i = 0; i < height; i++) {
-        vector<vector<unsigned char>> lineArray;
-        for(int j = 0; j < width; j++) {
-            vector<unsigned char> pixel;
-            for(int k = 0; k < 3; k++) {
-                infile >> temp;
-                pixel.push_back(temp);
-            }
-            lineArray.push_back(pixel);
-        }
-        this->data.push_back(lineArray);
-    }
+
+    infile.close();
 
 }
 
@@ -44,20 +37,32 @@ MyImageClass::MyImageClass() = default;
 
 void MyImageClass::save(const string &imgPath) {
     this->outputPath = imgPath;
-    std::ofstream outfile(outputPath,std::ios::out | std::ios::binary);
+    std::ofstream outfile(outputPath, std::ios::out | std::ios::binary);
     outfile << this->magicNum << "\n";
     outfile << this->width << " " << this->height << "\n";
-    outfile << this->maxPixVal << "\n";
+    outfile << this->maxPixVal;
 
-    for(int i = 0; i < height; i++) {
-        for(int j = 0; j < width; j++) {
-            for(int k = 0; k < 3; k++) {
-                outfile << data.at(i).at(j).at(k);
-                outfile << " ";
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            //像素坐标
+            int pixel = i * width + j;
+            //计算像素(i,j)的开头rgb在vector的一维坐标
+            int rgbIndex = pixel * 3;
+            for (int k = 0; k < 3; k++) {
+                //分别存像素(i,j)的rgb字节
+                outfile << data.at(rgbIndex + k);
             }
         }
-        outfile << "\n";
     }
+
+    //输出对比原始图片二进制data，总是末尾少一个0x50字节
+    //不加输出就是黑的，加上就是显示出图
+    char temp = 0x50;
+    outfile << temp;
+
+
+    outfile.close();
 
 }
 

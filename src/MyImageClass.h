@@ -17,7 +17,7 @@ private:
     int height;
     int width;
     int maxPixVal;
-    vector<vector<vector<unsigned char>>> data;
+    vector<unsigned char> data;
 
 public:
     explicit MyImageClass(const string& imgPath);
