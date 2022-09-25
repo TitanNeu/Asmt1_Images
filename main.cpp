@@ -3,11 +3,18 @@
 #include "src/MyImageClass.h"
 
 int main() {
-    std::string in = "/Users/hunterdick/CLionProjects/Asmt1-Images/source/p6/hkd.ppm";
-    MyImageClass img(in);
+    std::string inPath = "/Users/hunterdick/CLionProjects/Asmt1-Images/source/p6/hkd.ppm";
+    MyImageClass img1(inPath);
 
-    std::string out = "/Users/hunterdick/CLionProjects/Asmt1-Images/out/rgb/hkdOut.ppm";
-    img.save(out);
+    std::string inPath2 = "/Users/hunterdick/CLionProjects/Asmt1-Images/source/p6/Lenna.ppm";
+    MyImageClass img2(inPath2);
+
+
+    MyImageClass imgNew = img1 + img2;
+
+    std::string outPth1 = "/Users/hunterdick/CLionProjects/Asmt1-Images/out/rgb/hkdOut3.ppm";
+    std::string outPth2= "/Users/hunterdick/CLionProjects/Asmt1-Images/out/rgb/LennaOut.ppm";
+    imgNew.save(outPth1);
 
 
 }

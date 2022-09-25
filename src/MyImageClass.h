@@ -7,6 +7,7 @@
 #define P2 "P2"
 #define P6 "P6"
 #define P3 "P3"
+#define SPACE " "
 
 
 #include <string>
@@ -23,9 +24,9 @@ private:
     int maxPixVal;
     vector<unsigned char> data;
 
-    void readBinaryImg(const string &magicNum, std::ifstream &infile);
+    void readBinaryImg(std::ifstream &infile);
 
-    void readASCImg(const string &magicNum, std::ifstream &infile);
+    void readASCImg(std::ifstream &infile);
 
 
 public:
@@ -33,8 +34,9 @@ public:
 
     MyImageClass();
 
-//    MyImageClass operator+(const MyImageClass& img2);
     void operator+=(const MyImageClass &img2);
+
+    MyImageClass operator+(const MyImageClass &img2);
 
     void operator>>(std::ifstream in);
 
